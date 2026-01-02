@@ -52,13 +52,14 @@
 		};
 	};
 
-	usb_vbus: regulator-usb {
-		compatible = "regulator-fixed";
-		regulator-name = "usb-vbus";
-		regulator-min-microvolt = <5000000>;
-		regulator-max-microvolt = <5000000>;
-		gpios = <&pio 9 GPIO_ACTIVE_LOW>;
-		regulator-boot-on;
+	gpio-export {
+		compatible = "gpio-export";
+
+		gpio-0 {
+			gpio-export,name = "usb-enable";
+			gpio-export,output = <0>;
+			gpios = <&pio 9 GPIO_ACTIVE_LOW>;
+		};
 	};
 };
 
@@ -202,7 +203,6 @@
 
 &xhci {
 	status = "okay";
-	vbus-supply = <&usb_vbus>;
 };
 
 &wifi {
